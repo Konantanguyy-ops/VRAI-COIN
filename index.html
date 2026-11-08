@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <title>VRAI-COIN - Les vrais coins d'Abidjan</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #FFF7ED;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #EA580C;
+            font-size: 40px;
+            text-align: center;
+            margin: 0;
+        }
+
+        .slogan {
+            text-align: center;
+            color: #666;
+        }
+
+        .box-budget,
+        .box-ajout {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 500px;
+            margin: 20px auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        input {
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+            width: 90%;
+            margin: 5px 0;
+        }
+
+        button {
+            background: #EA580C;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .carte {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 500px;
+            margin: 15px auto;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .prix {
+            background: #DCFCE7;
+            padding: 10px;
+            border-radius: 10px;
+            font-weight: bold;
+            color: #166534;
+        }
+
+        .reste {
+            background: #FEF3C7;
+            padding: 8px;
+            border-radius: 8px;
+            font-weight: bold;
+            color: #92400E;
+            margin-top: 8px;
+            display: none;
+        }
+
+        .avis {
+            font-style: italic;
+            color: #555;
+        }
+
+        .btn-vert {
+            background: #16A34A;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn-whatsapp {
+            background: #25D366;
+            width: 100%;
+            margin-top: 5px;
+        }
+
+        #message {
+            text-align: center;
+            font-weight: bold;
+            color: #EA580C;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>VRAI-COIN 🧡</h1>
+    <p class="slogan">Les vrais coins que même Google Maps ne connaît pas.</p>
+
+    <div class="box-budget">
+        <h2>J'ai combien ?</h2>
+        <input id="budget" type="number" placeholder="Ex: 15000">
+        <button onclick="filtrer()">Trouve-moi un coin</button>
+    </div>
+
+    <p id="message"></p>
+    <h2 style="text-align:center;">Les bons plans du weekend</h2>
+
+    <div id="liste-coins">
+        <div class="carte" data-prix="7000">
+            <h3>🏖️ Plage de Bassam</h3>
+            <p>Transport : 1.000F | Attiéké poisson : 4.000F | Entrée : 2.000F</p>
+            <p class="prix">Total : 7.000F</p>
+            <p class="reste"></p>
+            <p class="avis">Avis vrai : "L'eau est propre le matin, viens tôt."</p>
+            <button class="btn-vert">Y aller en gbaka</button>
+            <button class="btn-whatsapp" onclick="partager('Plage de Bassam', 7000)">Partager sur WhatsApp</button>
+        </div>
+
+        <div class="carte" data-prix="7000">
+            <h3>🐟 Maquis Le Pouvoir - Anono</h3>
+            <p>Poisson braisé : 4.000F | Taxi : 2.000F | Boisson : 1.000F</p>
+            <p class="prix">Total : 7.000F</p>
+            <p class="reste"></p>
+            <p class="avis">Avis vrai : "Y'a moustiques, viens avec spirale."</p>
+            <button class="btn-vert">Y aller</button>
+            <button class="btn-whatsapp" onclick="partager('Maquis Le Pouvoir - Anono', 7000)">Partager sur
+                WhatsApp</button>
+        </div>
+
+        <div class="carte" data-prix="9000">
+            <h3>🌊 Cascade de Man</h3>
+            <p>Transport : 5.000F | Entrée : 1.000F | Nourriture : 3.000F</p>
+            <p class="prix">Total : 9.000F</p>
+            <p class="reste"></p>
+            <p class="avis">Avis vrai : "Prends des chaussures qui ne glissent pas."</p>
+            <button class="btn-vert">Y aller</button>
+            <button class="btn-whatsapp" onclick="partager('Cascade de Man', 9000)">Partager sur WhatsApp</button>
+        </div>
+
+        <div class="carte" data-prix="5000">
+            <h3>🌴 Forêt du Banco - Yopougon</h3>
+            <p>Transport : 1.000F | Entrée : 2.000F | Eau + Pain : 2.000F</p>
+            <p class="prix">Total : 5.000F</p>
+            <p class="reste"></p>
+            <p class="avis">Avis vrai : "Frais le matin, prends un pull léger."</p>
+            <button class="btn-vert">Y aller</button>
+            <button class="btn-whatsapp" onclick="partager('Forêt du Banco', 5000)">Partager sur WhatsApp</button>
+        </div>
+
+        <div class="carte" data-prix="12000">
+            <h3>🎡 Île Boulay - Abidjan</h3>
+            <p>Bateau : 5.000F | Nourriture : 5.000F | Boisson : 2.000F</p>
+            <p class="prix">Total : 12.000F</p>
+            <p class="reste"></p>
+            <p class="avis">Avis vrai : "Le dernier bateau part à 18h, ne rate pas ça."</p>
+            <button class="btn-vert">Y aller en bateau</button>
+            <button class="btn-whatsapp" onclick="partager('Île Boulay', 12000)">Partager sur WhatsApp</button>
+        </div>
+    </div>
+
+    <div class="box-ajout">
+        <h2>➕ Propose ton coin</h2>
+        <p>Tu connais un coin que personne connaît ? Ajoute-le !</p>
+        <input id="nom" type="text" placeholder="Nom du coin - Ex: Plage de Jacqueville">
+        <input id="prix" type="number" placeholder="Prix total - Ex: 6000">
+        <input id="avis" type="text" placeholder="Ton avis vrai - Ex: Viens avant 10h">
+        <br>
+        <button onclick="ajouterCoin()">Ajouter mon coin</button>
+    </div>
+
+    <p style="text-align:center;">Paiement : Wave / Orange Money</p>
+
+    <script>
+        function filtrer() {
+            let budget = document.getElementById("budget").value;
+            let cartes = document.querySelectorAll(".carte");
+            let trouve = 0;
+            cartes.forEach(carte => {
+                let prix = Number(carte.getAttribute("data-prix"));
+                let zoneReste = carte.querySelector(".reste");
+                if (budget == "" || prix <= budget) {
+                    carte.style.display = "block";
+                    trouve++;
+                    if (budget != "") {
+                        let reste = budget - prix;
+                        zoneReste.style.display = "block";
+                        zoneReste.innerHTML = "💰 Il te reste " + reste + "F après ce plan !";
+                    } else {
+                        zoneReste.style.display = "none";
+                    }
+                } else {
+                    carte.style.display = "none";
+                }
+            });
+            let msg = document.getElementById("message");
+            if (trouve == 0) {
+                msg.innerHTML = "Aucun coin pour " + budget + "F... Augmente un peu ton budget 😅";
+            } else {
+                msg.innerHTML = "On a trouvé " + trouve + " coin(s) pour toi ! 🎉";
+            }
+        }
+        function ajouterCoin() {
+            let nom = document.getElementById("nom").value;
+            let prix = document.getElementById("prix").value;
+            let avis = document.getElementById("avis").value;
+            if (nom == "" || prix == "") { alert("Mets au moins le nom et le prix !"); return; }
+            let liste = document.getElementById("liste-coins");
+            let nouvelleCarte = document.createElement("div");
+            nouvelleCarte.className = "carte";
+            nouvelleCarte.setAttribute("data-prix", prix);
+            nouvelleCarte.innerHTML = "<h3>📍 " + nom + "</h3><p class='prix'>Total : " + prix + "F</p><p class='reste'></p><p class='avis'>Avis vrai : \"" + avis + "\"</p><button class='btn-vert'>Y aller</button><button class='btn-whatsapp' onclick=\"partager('" + nom + "', " + prix + ")\">Partager sur WhatsApp</button>";
+            liste.appendChild(nouvelleCarte);
+            document.getElementById("nom").value = "";
+            document.getElementById("prix").value = "";
+            document.getElementById("avis").value = "";
+            alert("Ton coin a été ajouté ! 🎉");
+        }
+        function partager(nom, prix) {
+            let texte = "Regarde ce coin sur VRAI-COIN : " + nom + " pour " + prix + "F seulement ! Tu viens ?";
+            let url = "https://wa.me/?text=" + encodeURIComponent(texte);
+            window.open(url, "_blank");
+        }
+    </script>
+</body>
+
+</html>
