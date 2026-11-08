@@ -199,7 +199,7 @@
                     if (budget != "") {
                         let reste = budget - prix;
                         zoneReste.style.display = "block";
-                        zoneReste.innerHTML = "💰 Il te reste " + reste + "F après ce plan !";
+                        zoneReste.textContent = "💰 Il te reste " + reste + "F après ce plan !";
                     } else {
                         zoneReste.style.display = "none";
                     }
@@ -209,9 +209,9 @@
             });
             let msg = document.getElementById("message");
             if (trouve == 0) {
-                msg.innerHTML = "Aucun coin pour " + budget + "F... Augmente un peu ton budget 😅";
+                msg.textContent = "Aucun coin pour " + budget + "F... Augmente un peu ton budget 😅";
             } else {
-                msg.innerHTML = "On a trouvé " + trouve + " coin(s) pour toi ! 🎉";
+                msg.textContent = "On a trouvé " + trouve + " coin(s) pour toi ! 🎉";
             }
         }
         function ajouterCoin() {
@@ -223,8 +223,35 @@
             let nouvelleCarte = document.createElement("div");
             nouvelleCarte.className = "carte";
             nouvelleCarte.setAttribute("data-prix", prix);
-            nouvelleCarte.innerHTML = "<h3>📍 " + nom + "</h3><p class='prix'>Total : " + prix + "F</p><p class='reste'></p><p class='avis'>Avis vrai : \"" + avis + "\"</p><button class='btn-vert'>Y aller</button><button class='btn-whatsapp' onclick=\"partager('" + nom + "', " + prix + ")\">Partager sur WhatsApp</button>";
-            liste.appendChild(nouvelleCarte);
+            nouvelleCarte.replaceChildren();
+            const titre = document.createElement("h3");
+            titre.textContent = "📍 " + nom;
+            nouvelleCarte.appendChild(titre);
+
+            const pPrix = document.createElement("p");
+            pPrix.className = "prix";
+            pPrix.textContent = "Total : " + prix + "F";
+            nouvelleCarte.appendChild(pPrix);
+
+            const pReste = document.createElement("p");
+            pReste.className = "reste";
+            nouvelleCarte.appendChild(pReste);
+
+            const pAvis = document.createElement("p");
+            pAvis.className = "avis";
+            pAvis.textContent = 'Avis vrai : "' + avis + '"';
+            nouvelleCarte.appendChild(pAvis);
+
+            const btnAller = document.createElement("button");
+            btnAller.className = "btn-vert";
+            btnAller.textContent = "Y aller";
+            nouvelleCarte.appendChild(btnAller);
+
+            const btnPartager = document.createElement("button");
+            btnPartager.className = "btn-whatsapp";
+            btnPartager.textContent = "Partager sur WhatsApp";
+            btnPartager.addEventListener("click", function () { partager(nom, prix); });
+            nouvelleCarte.appendChild(btnPartager);
             document.getElementById("nom").value = "";
             document.getElementById("prix").value = "";
             document.getElementById("avis").value = "";
