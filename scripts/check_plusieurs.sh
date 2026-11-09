@@ -1,19 +1,17 @@
 #!/bin/bash
-
-# check_plusieurs.sh - Verifie plusieurs sites dun coup
-if [ $# -eq 0 ]; then
- echo "Utilisation: ./check_plusieurs.sh https://google.com http://example.com"
- exit 1
-fi
-
 for URL in "$@"; do
- echo "Verification de : $URL"
- echo "---------------------------"
- if [[ $URL == https://* ]]; then
- echo "OK : Le site utilise HTTPS (securise)"
- else
- echo "ATTENTION : Le site nutilise PAS HTTPS (non securise)"
- fi
- curl -I -s "$URL" | head -n 1
- echo ""
+echo "Verification de : $URL"
+echo "--------------------------------"
+curl -s -I "$URL" | head -n 1
+if echo "$URL" | grep -q "https://"; then
+echo "OK : Le site utilise HTTPS (securise)"
+else
+echo "ATTENTION : Le site nutilise PAS HTTPS"
+fi
+if echo "$URL" | grep -qi "gratuit\|free\|login\|verify\|cadeau\|gift\|account"; then
+echo "DANGER : site suspect, mot de pirate detecte !"
+else
+echo "Nom du site : OK"
+fi
+echo ""
 done
