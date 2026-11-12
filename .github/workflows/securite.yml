@@ -1,5 +1,5 @@
 name: Securite
-on:
+"on":
  push:
  branches: [ main ]
  pull_request:
