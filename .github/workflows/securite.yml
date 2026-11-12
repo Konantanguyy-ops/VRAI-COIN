@@ -8,15 +8,15 @@ jobs:
       - name: Le vigile pepine le code
         run: |
           echo "Je pepine..."
-          if grep -r "innerHTML" . --exclude-dir=.git; then
+          if grep -r "innerHTML" . --exclude-dir=.git --exclude-dir=.github; then
             echo "DANGER innerHTML"
             exit 1
           fi
-          if grep -r "eval(" . --exclude-dir=.git; then
+          if grep -r "eval(" . --exclude-dir=.git --exclude-dir=.github; then
             echo "DANGER eval"
             exit 1
           fi
-          if grep -r "document.write" . --exclude-dir=.git; then
+          if grep -r "document.write" . --exclude-dir=.git --exclude-dir=.github; then
             echo "DANGER document.write"
             exit 1
           fi
