@@ -1,33 +1,18 @@
-name: Securite VRAI-COIN
-
+name: Securite
 on:
-push:
-branches: [ main ]
-pull_request:
-branches: [ main ]
-
+ push:
+ branches: [ main ]
+ pull_request:
+ branches: [ main ]
 jobs:
-check-securite:
-runs-on: ubuntu-latest
-steps:
-- name: Recuperer le code
-uses: actions/checkout@v4
-
-- name: Verifier pas de innerHTML
-run: |
-echo "Je verifie ton code..."
-if grep -r "innerHTML" --include="*.html" --include="*.js" .; then
-echo "DANGER : innerHTML trouve ! Je bloque."
-exit 1
-else
-echo "Pas de innerHTML, c'est propre."
-fi
-
-- name: Verifier pas de eval
-run: |
-if grep -r "eval(" --include="*.html" --include="*.js" .; then
-echo "DANGER : eval() trouve ! Je bloque."
-exit 1
-else
-echo "Pas de eval(), c'est propre."
-fi
+ check-securite:
+ runs-on: ubuntu-latest
+ steps:
+ - name: Recuperer le code
+ uses: actions/checkout@v4
+ - name: Verifier innerHTML
+ run: |
+ if grep -r "innerHTML" --include="*.html" --include="*.js" --exclude-dir=.github .; then echo DANGER; exit 1; else echo OK; fi
+ - name: Verifier eval
+ run: |
+ if grep -r "eval(" --include="*.html" --include="*.js" --exclude-dir=.github .; then echo DANGER; exit 1; else echo OK; fi
