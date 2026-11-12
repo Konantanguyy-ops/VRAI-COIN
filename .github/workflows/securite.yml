@@ -1,10 +1,23 @@
 name: Securite
-"on":
-  push:
-    branches: [ main ]
+on: [push, pull_request]
 jobs:
-  check:
+  securite:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: echo OK
+      - name: Le vigile pepine le code
+        run: |
+          echo "Je pepine..."
+          if grep -r "innerHTML" . --exclude-dir=.git; then
+            echo "DANGER innerHTML"
+            exit 1
+          fi
+          if grep -r "eval(" . --exclude-dir=.git; then
+            echo "DANGER eval"
+            exit 1
+          fi
+          if grep -r "document.write" . --exclude-dir=.git; then
+            echo "DANGER document.write"
+            exit 1
+          fi
+          echo "OK propre"
