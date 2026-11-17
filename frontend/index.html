@@ -263,6 +263,18 @@
             window.open(url, "_blank");
         }
     </script>
+<!-- CALCUL DES PARTS - VRAI-COIN -->
+<h2>Calcul des parts</h2>
+<p>Qui possède combien de VRAI-COIN ?</p>
+<input id="nom1" placeholder="Nom 1 - ex: Tanguy">
+<input id="montant1" type="number" placeholder="Montant 1 - ex: 30000">
+<br><br>
+<input id="nom2" placeholder="Nom 2 - ex: Ami">
+<input id="montant2" type="number" placeholder="Montant 2 - ex: 20000">
+<br><br>
+<button onclick="calculerParts()">Calculer les parts</button>
+<p id="resultat-parts"></p>
+<script src="calcul-parts.js"></script>
 </body>
 
 </html>
